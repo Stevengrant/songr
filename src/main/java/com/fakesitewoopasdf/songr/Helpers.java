@@ -5,13 +5,13 @@ public class Helpers {
     }
     public String reverseString ( String string) {
         String[] splitSting = string.split(" ");
-        String stringAcc = "";
+        StringBuilder stringAcc = new StringBuilder();
 
-        for (int i = splitSting.length - 1; i > -1 ; i--){
+        for (int i = 0; i < splitSting.length ; i++){
 
-            stringAcc+=splitSting[i] + " ";
+            stringAcc.insert(0," " +splitSting[i]);
         }
-
-        return stringAcc;
+        System.out.println(stringAcc.toString());
+        return stringAcc.toString();
     }
 }
