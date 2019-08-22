@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/song" method="post">
+    <label > Title<input name="title" type="text"></label>
+    <label > Track number <input name="trackNumber" type="number"></label>
+    <label > Length in seconds <input name="lengthInSeconds" type="number"></label>
+    <button type="submit">Submit</button>
+    <input name="id" th:value="${album.id}" type="hidden">
+</form>
+<form action="/song"></form>
+<h1 th:text="${album.title}"></h1>
+<h2 th:text="${album.artist}"></h2>
+<img th:src="${album.albumArtUrl}" alt="">
+<ol th:each="song : ${album.songs}">
+    <li><span th:text="${song.trackNumber}"></span> <span th:text="${song.title}"></span> <span th:text="${song.trackNumber}"></span></li>
+</ol>
+</body>
+</html>

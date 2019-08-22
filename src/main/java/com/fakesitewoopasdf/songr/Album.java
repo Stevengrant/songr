@@ -1,13 +1,14 @@
 package com.fakesitewoopasdf.songr;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Album {
+    public long getId() {
+        return id;
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
@@ -39,6 +40,13 @@ public class Album {
     Integer lengthInSeconds;
     String albumArtUrl;
 
+    public List<Song> getSongs() {
+        return songs;
+    }
+
+    @OneToMany(fetch=FetchType.EAGER, mappedBy = "albumAppearsOn")
+    List<Song> songs;
+
     public Album(String title, String artist, Integer songCount, Integer lengthInSeconds, String albumArtUrl){
         this.title = title;
         this.artist = artist;
@@ -47,4 +55,9 @@ public class Album {
         this.albumArtUrl = albumArtUrl;
     }
     public Album (){}
+
+    @Override
+    public String toString() {
+        return this.title + this.artist + "songs # in list: "+this.songs.size();
+    }
 }
