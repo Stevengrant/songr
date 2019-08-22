@@ -5,16 +5,23 @@
     <title>Title</title>
 </head>
 <body>
-<div th:each="album : ${albums}">
-    <h3 th:text="${album.title}">
-        Title
-    </h3>
-    <h4 th:text="${album.artist}">
-        artist
-    </h4>
-    <ul>
-        <li>Song count: <span th:text="${album.songCount}"></span></li>
-    </ul>
+
+<h1 >Albums</h1>
+<h2>Add an album</h2>
+<form action="/albums" method="POST">
+    <label>Title<input name ="title" type="text"></label>
+    <label>Artist<input name ="artist" type="text"></label>
+    <label>Number Of Songs<input name ="songCount" type="number"></label>
+    <label>Length in seconds<input name="lengthInSeconds" type="number"></label>
+    <label>Image URL<input name="albumArtUrl" type="text"></label>
+    <button type="submit">Submit</button>
+</form>
+<div th:each="album: ${albums}">
+    <h3 th:text="${album.title}"></h3>
+    <h4 th:text="${album.artist}"></h4>
+    <p th:text="${album.songCount}"></p>
+    <img th:src="${album.albumArtUrl}" alt="">
 </div>
+
 </body>
 </html>

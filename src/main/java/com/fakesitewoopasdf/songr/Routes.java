@@ -5,7 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 
@@ -15,10 +17,18 @@ public class Routes {
     @Autowired
     AlbumRepository albumRepository;
 
+    @PostMapping("/albums")
+    public RedirectView postAlbum( String title, String artist, Integer songCount, Integer lengthInSeconds, String albumArtUrl){
+        Album a = new Album(title,artist,songCount,lengthInSeconds,albumArtUrl);
+        albumRepository.save(a);
+        return new RedirectView("/albums");    }
     @GetMapping("/albums")
     public String getAllAlbums(Model m){
         List<Album> albums = albumRepository.findAll();
-        m.addAttribute("Albums",albums);
+        if(albums.size() > 0){
+            System.out.println(albums.get(0).title);
+        }
+        m.addAttribute("albums",albums);
         return "albums";
     }
     @GetMapping("/hello")
