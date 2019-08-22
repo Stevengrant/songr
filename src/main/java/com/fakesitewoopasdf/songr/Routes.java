@@ -16,6 +16,8 @@ public class Routes {
 
     @Autowired
     AlbumRepository albumRepository;
+    @Autowired
+    SongRepository songRepository;
 
     @PostMapping("/albums")
     public RedirectView postAlbum( String title, String artist, Integer songCount, Integer lengthInSeconds, String albumArtUrl){
@@ -48,6 +50,23 @@ public class Routes {
         m.addAttribute("word", helper.reverseString(word));
         return "cap";
     }
+    @GetMapping("/album/{id}")
+    public String getOneAlbum(@PathVariable long id, Model m){
+        System.out.println("============>"+ id);
 
+        Album a = albumRepository.getOne(id);
+        System.out.println("============>"+a);
+        m.addAttribute("album", a);
+        //todo
+
+        return "album";
+    }
+        @PostMapping("/song")
+    public RedirectView postOneSong(long id, Model m, String title, Integer lengthInSeconds, Integer trackNumber){
+        Album a = albumRepository.getOne(id);
+        Song s = new Song(title,lengthInSeconds,trackNumber, a);
+        songRepository.save(s);
+        return new RedirectView("/album/"+id);
+    }
 
 }

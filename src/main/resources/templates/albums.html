@@ -21,6 +21,7 @@
     <h4 th:text="${album.artist}"></h4>
     <p th:text="${album.songCount}"></p>
     <img th:src="${album.albumArtUrl}" alt="">
+    <a th:href="${'/album/' + album.id}">Click click clickity click click</a>
 </div>
 
 </body>
